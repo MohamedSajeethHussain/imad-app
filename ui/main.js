@@ -6,9 +6,8 @@ console.log('Loaded!');
 //element.innerHTML = "html content changed from main.js";
 
 //counter code
-
-var button = document.getElementById('counter');
 var counter = 0;
+var button = document.getElementById('counter');
 button.onClick = function(){
     //create a request to the counter 
     var request = new XMLHttpRequest();
@@ -17,6 +16,6 @@ button.onClick = function(){
     //render the variable in the correct span
     
     counter = counter + 1;
-    var span = document.getElementById('count"');
+    var span = document.getElementById('count');
     span.innerHTML = counter.toString();
 }
