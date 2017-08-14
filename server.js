@@ -5,11 +5,100 @@ var path = require('path');
 var app = express();
 app.use(morgan('combined'));
 
+var articles = {
+    'article-one' : {
+        title: 'Article One | MSH',
+        heading: 'Articel One',
+        date: 'Aug 13, 2017',
+        content: ` <p>
+                    This is the article one which i created as a part of exercise for my cource.
+                    I love this course since i am refreshing my knowledge and getting to know new terms and technical key words.
+                </p>
+                <p>
+                    Section 2: This is the article one which i created as a part of exercise for my cource.
+                    I love this course since i am refreshing my knowledge and getting to know new terms and technical key words.
+                </p>
+                <p>
+                    Section 3: This is the article one which i created as a part of exercise for my cource.
+                    I love this course since i am refreshing my knowledge and getting to know new terms and technical key words.
+                </p>`
+    },
+    'article-two' : {
+        title: 'Article Two | MSH',
+        heading: 'Articel Two',
+        date: 'Aug 13, 2017',
+        content: ` <p>
+                    This is the article two which i created as a part of exercise for my cource.
+                    I love this course since i am refreshing my knowledge and getting to know new terms and technical key words.
+                </p>
+                <p>
+                    Section 2: This is the article two which i created as a part of exercise for my cource.
+                    I love this course since i am refreshing my knowledge and getting to know new terms and technical key words.
+                </p>
+                <p>
+                    Section 3: This is the article two which i created as a part of exercise for my cource.
+                    I love this course since i am refreshing my knowledge and getting to know new terms and technical key words.
+                </p>`
+    },
+    'article-three' : {
+        title: 'Article Three | MSH',
+        heading: 'Articel Three',
+        date: 'Aug 13, 2017',
+        content: ` <p>
+                    This is the article three which i created as a part of exercise for my cource.
+                    I love this course since i am refreshing my knowledge and getting to know new terms and technical key words.
+                </p>
+                <p>
+                    Section 2: This is the article three which i created as a part of exercise for my cource.
+                    I love this course since i am refreshing my knowledge and getting to know new terms and technical key words.
+                </p>
+                <p>
+                    Section 3: This is the article three which i created as a part of exercise for my cource.
+                    I love this course since i am refreshing my knowledge and getting to know new terms and technical key words.
+                </p>`
+    }
+};
+
+function createTemplate(data){
+    var title = data.title;
+    var date = data.date;
+    var heading = data.heading;
+    var content = data.content;
+    
+    var htmlTemplate = 
+    `<html>
+        <head>
+            <title>${title}</title>
+            <meta none="viewport" content="width=device.width, initial-scale=1"/>
+            <link href="/ui/style.css" rel="stylesheet" />
+        </head>
+            <body>
+                <div class="container">
+                    <div>
+                        <a href="/">Home</a>
+                    </div>
+                    <hr/>
+                    <h3>
+                        ${heading}
+                    </h3>
+                    <div>
+                        ${date}
+                    </div>
+                    <div>
+                        ${content}
+                    </div>
+                </div>
+            </body>
+    </html>`;
+    
+};
+
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
-app.get('/article-one', function (req,res){
-    res.sendFile(path.join(__dirname, 'ui', 'article-one.html'));
+app.get('/:articleName', function (req,res){
+    var articleName = req.params.articleName;
+    res.send(createTemplate(articles[articleName]));
 });
 app.get('/article-two', function (req,res){
     res.sendFile(path.join(__dirname, 'ui', 'article-two.html'));
