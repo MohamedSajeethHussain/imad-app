@@ -126,7 +126,8 @@ app.get('/test-db', function(req, res){
 app.get('/articlefromDB/:articleName', function (req,res){
     //var articleName = req.params.articleName
     // SELECT * FROM article WHERE title= ' article-one'
-    pool.query("SELECT * FROM article WHERE title= '"+req.params.articleName + "'", function(err, result){
+    //pool.query("SELECT * FROM article WHERE title= '"+req.params.articleName + "'", function(err, result){ // security treat since the user could give their req query as single string. to avoid we could use $ to pass the params as shown below
+    pool.query("SELECT * FROM article WHERE title=$1",[req.params.articleName] , function(err, result){
         if(err){
             res.status(500).send(err.toString());
         } else {
